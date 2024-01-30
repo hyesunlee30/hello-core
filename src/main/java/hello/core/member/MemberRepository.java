@@ -1,7 +1,9 @@
 package hello.core.member;
 
-public interface MemberRepository {
-    void save(Member meber);
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    Member findById(Long memberId);
+public interface MemberRepository extends JpaRepository<Member,Long> {
+//    void save(Member meber);
+//
+//    Member findById(Long memberId);
 }
