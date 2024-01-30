@@ -10,7 +10,6 @@ public class MemberSaveRequest {
     private String email;
     private String password;
     private String address;
-    private String role;
 
     public static Member toEntity(MemberSaveRequest request) {
 

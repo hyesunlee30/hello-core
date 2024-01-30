@@ -1,9 +1,6 @@
 package hello.core.member;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,11 +22,10 @@ public class MemberController {
     public List<MemberListLoadResponse> loadMembers() {
         return memberService.loadMemberList();
     }
-    // -회원별주문목록조회(/member/{id}/orders)
 
     @GetMapping("/member/{id}/orders")
-    public List<MemberOrderListLoadResponse> loadMemberOrder() {
-        return memberService.loadMemberOrderList();
+    public MemberOrderListLoadResponse loadMemberOrder(@PathVariable Long id) {
+        return memberService.loadMemberOrderList(id);
     }
 
 

@@ -4,6 +4,7 @@ package hello.core.member;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +25,14 @@ public class MemberService {
         return members.stream().map(MemberListLoadResponse::of).collect(Collectors.toList());
     }
 
-    public List<MemberOrderListLoadResponse> loadMemberOrderList() {
-        List<Member> members = repository.findAll();
-        return members.stream().map(MemberOrderListLoadResponse::of).collect(Collectors.toList());
+    public MemberOrderListLoadResponse loadMemberOrderList(Long id) {
+        Optional<Member> member = repository.findById(id);
+        MemberOrderListLoadResponse response = null;
+        if(member.isPresent()) {
+            return MemberOrderListLoadResponse.of(member.get());
+        }
+
+        return response;
     }
 
 

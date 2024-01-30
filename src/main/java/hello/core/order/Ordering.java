@@ -16,6 +16,7 @@ import java.util.List;
 @Builder // 빌더
 @AllArgsConstructor // 빌더
 @Entity // db
+@Table(name = "ordering")
 public class Ordering extends BaseTimeEntity {
 
     @Id
@@ -28,7 +29,9 @@ public class Ordering extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
     @OneToMany(mappedBy = "ordering", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<OrderingItem> orderingItems = new ArrayList<>();
 
     public void setMember(Member member) {
@@ -52,13 +55,13 @@ public class Ordering extends BaseTimeEntity {
         order.setOrderStatus(OrderStatus.ORDERED);
         return order;
     }
-//    private String itemName;
-//    private int itemPrice;
-//    private int discountPrice;
-//
-//
-//    public int calculatePrice(){
-//        return itemPrice - discountPrice;
-//    }
+    public void cancel() {
+
+        this.orderStatus = OrderStatus.CANCELED ;
+        for(OrderingItem orderItem : this.orderingItems) {
+            orderItem.cancel();
+        }
+    }
+
 
 }

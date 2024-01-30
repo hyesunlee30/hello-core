@@ -32,7 +32,7 @@ public class Item extends BaseTimeEntity {
         this.stockQuantity  = this.getStockQuantity() - count;
     }
 
-    public void addStock(int count) {
+    public void addStockQuantity(int count) {
         this.stockQuantity  = this.getStockQuantity() + count;
     }
 

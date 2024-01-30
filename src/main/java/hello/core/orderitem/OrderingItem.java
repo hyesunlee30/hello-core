@@ -24,7 +24,7 @@ public class OrderingItem extends BaseTimeEntity {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ordering_id")
     private Ordering ordering;
 
@@ -39,4 +39,10 @@ public class OrderingItem extends BaseTimeEntity {
 
         return orderItem;
     }
+
+    public void cancel() {
+        // 재고수량 복구
+        getItem().addStockQuantity(this.quantity);
+    }
+
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor // 리플렉션 왜 protected 인지 정리하기
@@ -29,7 +30,9 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Grade grade;
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Ordering> orderings;
+    @Builder.Default
+    private List<Ordering> orderings = new ArrayList<>();
+
 
 
 }

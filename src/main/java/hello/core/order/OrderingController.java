@@ -1,9 +1,6 @@
 package hello.core.order;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,13 +12,20 @@ public class OrderingController {
         this.service = service;
     }
 
-    @GetMapping("orders")
+    @GetMapping("/orders")
     public List<OrderingListLoadResponse> loadOrderList() {
         return service.loadOrderList();
     }
 
     @PostMapping("/order/new")
-    public void save(@RequestBody OrderingSaveRequest request) {
+    public String save(@RequestBody OrderingSaveRequest request) {
         service.save(request);
+        return "OK";
+    }
+
+    @DeleteMapping("/order/{id}/cancel")
+    public String cancel (@PathVariable Long id) {
+        service.cancel(id);
+        return "OK";
     }
 }
